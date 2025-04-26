@@ -1,0 +1,226 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="py-5 text-center text-light" style="background-color: #808080;">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Discover the Latest Electronics</h1>
+        <p class="lead mb-4">From smartphones to gaming gear — everything you need at unbeatable prices.</p>
+        <a href="{% url 'products' %}" class="btn btn-light btn-lg">Shop Now</a>
+    </div>
+</section>
+
+
+<!-- User Welcome Section -->
+<div class="container mt-5">
+    <h2 class="mb-4">Welcome {{ request.user.username }}</h2>
+    <p class="lead">Explore the latest gadgets and electronics tailored just for you.</p>
+
+    <!-- Category Highlights -->
+    <div class="row mb-5 text-center">
+        <div class="col-md-3">
+            <div class="p-3 border rounded shadow-sm bg-light">
+                <h5>Smartphones</h5>
+                <p>Browse the latest smartphones from top brands.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-3 border rounded shadow-sm bg-light">
+                <h5>Laptops</h5>
+                <p>Find the perfect laptop for work or play.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-3 border rounded shadow-sm bg-light">
+                <h5>Accessories</h5>
+                <p>Enhance your tech experience with our accessories.</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="p-3 border rounded shadow-sm bg-light">
+                <h5>Gaming</h5>
+                <p>Gear up with the latest gaming consoles and accessories.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommended Products -->
+    <h4>Recommended for You</h4>
+    <div class="row">
+        {% for product in recommended_products %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:15 }}</p>
+                    <p class="text-success fw-bold">₹{{ product.price }}</p>
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-primary">View</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No recommendations yet. Add something to your cart!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Why Us Section -->
+    <section class="why-us mt-5">
+        <h3 class="mb-4">Why Choose Us?</h3>
+        <div class="row text-center">
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <h4>Quality Products</h4>
+                    <p>Top quality gadgets curated from the best global brands.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <h4>Fast Shipping</h4>
+                    <p>Quick and secure delivery right to your doorstep.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="p-3 border rounded shadow-sm bg-light">
+                    <h4>Secure Payments</h4>
+                    <p>Reliable and encrypted transactions every time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Newsletter Subscription -->
+<section class="bg-secondary text-light py-4 mt-5">
+    <div class="container text-center">
+        <h5 class="mb-3">Stay in the loop!</h5>
+        <form class="row justify-content-center">
+            <div class="col-md-6">
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-dark w-100" type="submit">Subscribe</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-light py-4 w-100 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5>About Us</h5>
+                <p>We’re dedicated to delivering tech that transforms your lifestyle — smart, fast, and secure.</p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Support</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-light">Contact Us</a></li>
+                    <li><a href="#" class="text-light">Returns</a></li>
+                    <li><a href="#" class="text-light">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 mb-3">
+                <h5>Connect</h5>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#" class="text-light">Facebook</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-light">Instagram</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-light">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <small>&copy; 2025 Rhythm Electronics. All rights reserved.</small>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top -->
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" class="btn btn-primary position-fixed bottom-0 end-0 m-3">↑</button>
+
+<!-- Optional Styling -->
+<style>
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+
+    .position-fixed {
+        z-index: 1050;
+    }
+
+    /* Hero Section */
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    /* Product Card */
+    .card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    /* Category Highlights */
+    .p-3 {
+        padding: 15px;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s;
+    }
+
+    .p-3:hover {
+        background-color: #e9ecef;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Buttons */
+    .btn-primary, .btn-dark {
+        font-size: 1.1rem;
+        padding: 12px 25px;
+        text-transform: uppercase;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+        background-color: transparent;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #343a40;
+    }
+
+    footer a {
+        text-decoration: none;
+    }
+
+    /* Scroll to Top Button */
+    .position-fixed {
+        background-color: #007bff;
+        color: white;
+        border-radius: 50%;
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+  <div class="product-detail">
+    <div class="container">
+      <div class="row">
+        <!-- Product Image Section -->
+        <div class="col-md-6">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" />
+        </div>
+
+        <!-- Product Details Section -->
+        <div class="col-md-6">
+          <h2>{{ product.name }}</h2>
+          <p><strong>Category:</strong> {{ product.category.name }}</p>
+          <p><strong>Description:</strong> {{ product.description }}</p>
+          <p><strong>Price:</strong> ₹{{ product.price }}</p>
+
+          <!-- Optional: Add to Cart Button -->
+          <form method="post" action="{% url 'add_to_cart' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Adding the CSS directly within the file -->
+  <style>
+    /* Product Detail Page Styling */
+    .product-detail {
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-detail h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .product-detail p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    .product-detail .btn {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      background-color: #28a745;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .product-detail .btn:hover {
+      background-color: #218838;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+      .product-detail .row {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .product-detail .col-md-6 {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+{% endblock %}

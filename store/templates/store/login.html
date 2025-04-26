@@ -1,0 +1,141 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      {% for m in messages %}
+        <div class="alert alert-{{ m.tags }} text-center">{{ m }}</div>
+      {% endfor %}
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <h3 class="card-title text-center mb-4">GadgetStore Login</h3>
+          <p class="text-center mb-4">
+            Welcome to GadgetStore! The ultimate destination for all your tech needs. From the latest smartphones to cutting-edge gaming gear, we’ve got it all.
+          </p>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <!-- Pass the next parameter here to ensure proper redirection after login -->
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+
+            <div class="mb-3">
+              <label for="id_username" class="form-label">Username</label>
+              <input type="text" name="username" id="id_username" class="form-control" required autofocus>
+            </div>
+
+            <div class="mb-3">
+              <label for="id_password" class="form-label">Password</label>
+              <input type="password" name="password" id="id_password" class="form-control" required>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <p class="text-center mt-3">
+        Don’t have an account? <a href="{% url 'register' %}">Register here</a>
+      </p>
+
+      <!-- About GadgetStore Section -->
+      <div class="mt-4 text-center about-section">
+        <h5>About GadgetStore</h5>
+        <p>
+          GadgetStore is your one-stop shop for all things tech. We bring you the latest gadgets at affordable prices, with easy navigation and secure shopping experiences. Whether you're looking for a new smartphone, laptop, or gaming accessories, we have something for every tech enthusiast.
+        </p>
+        <p>Start shopping today and upgrade your tech game!</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!-- Additional CSS -->
+<style>
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+
+  .about-section {
+    background-color: #f7f7f7;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+
+  .about-section h5 {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .about-section p {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .text-center p a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .text-center p a:hover {
+    text-decoration: underline;
+  }
+
+  .alert {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    transition: border-color 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+
+  /* Adjusting margins and padding for responsive design */
+  @media (max-width: 768px) {
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .about-section {
+      padding: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,129 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Your Order History</h1>
+
+    {% if order_history %}
+      <div class="order-history-list">
+        <ul>
+          {% for order in order_history %}
+            <li class="order-item">
+              <div class="order-details">
+                
+                <div class="order-info">
+                  <strong>Order ID:</strong> {{ order.order_id }}<br>
+                  <strong>Product:</strong> {{ order.product_name }}<br>
+                  <strong>Quantity:</strong> {{ order.quantity }}<br>
+                  <strong>Total Price:</strong> ₹{{ order.total_price }}<br>
+                  <strong>Order Date:</strong> {{ order.order_date|date:"Y-m-d H:i:s" }}
+                </div>
+              </div>
+              <hr>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <p>You have no past orders.</p>
+    {% endif %}
+  </div>
+
+  <!-- Add your CSS styling here -->
+  <style>
+    /* Order History Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* List Style */
+    .order-history-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .order-history-list li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Order Item Styling */
+    .order-item {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .order-details {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+
+    .order-image {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+
+    .order-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .order-info {
+      max-width: 600px;
+    }
+
+    /* Product Info Styling */
+    .order-info strong {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .order-info {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #555;
+    }
+
+    /* Order Date and Total Price */
+    .order-info .order-date,
+    .order-info .total-price {
+      font-weight: bold;
+      color: #1e7e34;
+      margin-top: 10px;
+    }
+
+    /* For smaller screens */
+    @media (max-width: 768px) {
+      .order-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .order-image {
+        margin-bottom: 10px;
+        width: 80px;
+        height: 80px;
+      }
+
+      .order-info {
+        width: 100%;
+      }
+    }
+  </style>
+{% endblock %}

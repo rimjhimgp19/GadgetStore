@@ -1,0 +1,9 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<h2>Your Orders</h2>
+{% for order in orders %}
+  <p>{{ order.product.name }} - Qty: {{ order.quantity }} - Ordered on: {{ order.ordered_at }}</p>
+{% empty %}
+  <p>No orders placed yet.</p>
+{% endfor %}
+{% endblock %}

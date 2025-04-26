@@ -1,0 +1,104 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+<!-- Add the green checkmark and the title of the page -->
+<div class="order-confirmation">
+    <h2>Order Confirmation</h2>
+    <div class="order-status">
+        <!-- Green Tick icon -->
+        <span class="order-status-icon">&#10003;</span>
+        <span class="order-status-text">Your order has been successfully placed!</span>
+    </div>
+
+    <p><strong>Order ID:</strong> {{ order.id }}</p>
+    <p><strong>Total:</strong> ₹{{ order.total }}</p>
+
+    <h3>Order Items:</h3>
+    <ul class="order-items">
+        {% for item in order.items.all %}
+            <li class="order-item">
+                <div class="order-item-details">
+                    <!-- Display product image -->
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                    <div class="item-info">
+                        <p>{{ item.product.name }} ({{ item.quantity }}) - ₹{{ item.price }}</p>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+<!-- Add custom CSS -->
+{% block extra_css %}
+<style>
+    .order-confirmation {
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .order-status {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .order-status-icon {
+        font-size: 32px;
+        color: green;
+        margin-right: 10px;
+    }
+
+    .order-status-text {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .order-items {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-item-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .product-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 15px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .item-info p {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    .order-item p {
+        font-weight: bold;
+    }
+
+    .order-item-details p {
+        margin-left: 10px;
+    }
+</style>
+{% endblock %}
